@@ -19,6 +19,17 @@ namespace ego_planner
     nh.param("optimization/order", order_, 3);
   }
 
+  void BsplineOptimizer::InitParam() {
+    lambda1_ = 1.0;
+    lambda2_ = 0.5;
+    lambda3_ = 0.1;
+    lambda4_ = 1.0;
+    dist0_ = 0.5;
+    max_vel_ = 2.0;
+    max_acc_ = 3.0;
+    order_ = 3;
+  }
+
   void BsplineOptimizer::setEnvironment(const GridMap::Ptr &env)
   {
     this->grid_map_ = env;

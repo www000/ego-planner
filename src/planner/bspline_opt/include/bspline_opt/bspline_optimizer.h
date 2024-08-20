@@ -16,8 +16,8 @@
 namespace ego_planner
 {
 
-  class ControlPoints
-  {
+class ControlPoints
+{
   public:
     double clearance;
     int size;
@@ -42,20 +42,21 @@ namespace ego_planner
       flag_temp.resize(size);
       // occupancy.resize(size);
     }
-  };
+};
 
-  class BsplineOptimizer
-  {
-
+class BsplineOptimizer
+{
   public:
-    BsplineOptimizer() {}
+    BsplineOptimizer() {
+      InitParam();
+    }
     ~BsplineOptimizer() {}
 
     /* main API */
     void setEnvironment(const GridMap::Ptr &env);
     void setParam(ros::NodeHandle &nh);
-    Eigen::MatrixXd BsplineOptimizeTraj(const Eigen::MatrixXd &points, const double &ts,
-                                        const int &cost_function, int max_num_id, int max_time_id);
+
+    void InitParam();
 
     /* helper function */
 
@@ -155,7 +156,7 @@ namespace ego_planner
     typedef unique_ptr<BsplineOptimizer> Ptr;
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-  };
+};
 
 } // namespace ego_planner
 #endif

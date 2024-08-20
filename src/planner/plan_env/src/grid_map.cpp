@@ -459,7 +459,6 @@ void GridMap::raycastProcess()
 
   while (!md_.cache_voxel_.empty())
   {
-
     Eigen::Vector3i idx = md_.cache_voxel_.front();
     int idx_ctns = toAddress(idx);
     md_.cache_voxel_.pop();
@@ -492,7 +491,7 @@ void GridMap::raycastProcess()
   }
 }
 
-Eigen::Vector3d GridMap::closetPointInMap(const Eigen::Vector3d &pt, const Eigen::Vector3d &camera_pt)
+Eigen::Vector3d GridMap::closetPointInMap(const Eigen::Vector3d &pt, const Eigen::Vector3d &camera_pt) const
 {
   Eigen::Vector3d diff = pt - camera_pt;
   Eigen::Vector3d max_tc = mp_.map_max_boundary_ - camera_pt;
@@ -612,11 +611,9 @@ void GridMap::clearAndInflateLocalMap()
     for (int y = md_.local_bound_min_(1); y <= md_.local_bound_max_(1); ++y)
       for (int z = md_.local_bound_min_(2); z <= md_.local_bound_max_(2); ++z)
       {
-
         if (md_.occupancy_buffer_[toAddress(x, y, z)] > mp_.min_occupancy_log_)
         {
           inflatePoint(Eigen::Vector3i(x, y, z), inf_step, inf_pts);
-
           for (int k = 0; k < (int)inf_pts.size(); ++k)
           {
             inf_pt = inf_pts[k];
@@ -964,17 +961,13 @@ void GridMap::publishUnknown()
   unknown_pub_.publish(cloud_msg);
 }
 
-bool GridMap::odomValid() { return md_.has_odom_; }
+bool GridMap::odomValid() const { return md_.has_odom_; }
 
-bool GridMap::hasDepthObservation() { return md_.has_first_depth_; }
+bool GridMap::hasDepthObservation() const { return md_.has_first_depth_; }
 
-Eigen::Vector3d GridMap::getOrigin() { return mp_.map_origin_; }
+Eigen::Vector3d GridMap::getOrigin() const { return mp_.map_origin_; }
 
-// int GridMap::getVoxelNum() {
-//   return mp_.map_voxel_num_[0] * mp_.map_voxel_num_[1] * mp_.map_voxel_num_[2];
-// }
-
-void GridMap::getRegion(Eigen::Vector3d &ori, Eigen::Vector3d &size)
+void GridMap::getRegion(Eigen::Vector3d &ori, Eigen::Vector3d &size) const
 {
   ori = mp_.map_origin_, size = mp_.map_size_;
 }
