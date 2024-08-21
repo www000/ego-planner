@@ -42,3 +42,11 @@ add_library( bspline_opt
 target_link_libraries( bspline_opt
     ${catkin_LIBRARIES} 
     )  
+
+add_executable(test_optimizer
+  src/test_optimizer.cpp 
+  )
+target_link_libraries(test_optimizer 
+  bspline_opt
+  ${catkin_LIBRARIES}
+  )

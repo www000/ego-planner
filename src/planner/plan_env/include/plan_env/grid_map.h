@@ -153,6 +153,8 @@ public:
 
   enum { POSE_STAMPED = 1, ODOMETRY = 2, INVALID_IDX = -10000 };
 
+  void InitMapWithDefault(ros::NodeHandle &nh);
+
   // occupancy map management
   void resetBuffer();
   void resetBuffer(Eigen::Vector3d min, Eigen::Vector3d max);
